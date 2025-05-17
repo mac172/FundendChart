@@ -1,9 +1,11 @@
+
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useEffect, useState } from "react";
 import { AnimatedWords } from "./HeroSection";
+import { AnimatedGridBackground } from "./ui/animated-grid";
 
 const features = [
   {
@@ -49,14 +51,14 @@ export default function WhySection() {
         }}
         animate={
           visible
-            ? {
-                opacity: 1,
-                scale: 1,
-                rotateX: 0,
-                filter: "blur(0px)",
-                visibility: "visible",
-              }
-            : {}
+          ? {
+            opacity: 1,
+            scale: 1,
+            rotateX: 0,
+            filter: "blur(0px)",
+            visibility: "visible",
+          }
+          : {}
         }
         transition={{ duration: 1.2, ease: "easeOut" }}
         className="relative h-screen py-24 px-6 md:px-12 lg:px-24 bg-gradient-to-b from-black via-purple-950 to-black text-white overflow-hidden"
@@ -65,7 +67,8 @@ export default function WhySection() {
           transformStyle: "preserve-3d",
         }}
       >
-        {/* Aurora background */}
+        <AnimatedGridBackground className="opacity-30"/>
+        {/* Aurora Background */}
         <div className="absolute inset-0 pointer-events-none z-0">
           <div
             className="w-full h-full"
@@ -79,7 +82,32 @@ export default function WhySection() {
           />
         </div>
 
-        {/* Animated planet SVG */}
+        {/* Animated curved SVG path */}
+        <motion.svg
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={visible ? { pathLength: 1, opacity: 0.4 } : {}}
+          transition={{ duration: 2, ease: "easeInOut", delay: 0.5 }}
+          className="absolute top-0 left-0 w-full h-full pointer-events-none z-0"
+          viewBox="0 0 1440 600"
+          fill="none"
+          preserveAspectRatio="none"
+        >
+          <motion.path
+            d="M0,300 C360,100 1080,500 1440,300"
+            stroke="url(#gradient)"
+            strokeWidth="4"
+            strokeLinecap="round"
+            fill="transparent"
+          />
+          <defs>
+            <linearGradient id="gradient" x1="0" x2="1440" y1="0" y2="600" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#A855F7" stopOpacity="0.4" />
+              <stop offset="1" stopColor="#9333EA" stopOpacity="0.2" />
+            </linearGradient>
+          </defs>
+        </motion.svg>
+
+        {/* Stars */}
         <motion.img
           src="/stars.svg"
           alt="Planet Outline"
@@ -106,7 +134,7 @@ export default function WhySection() {
           }}
         />
 
-        {/* Title */}
+        {/* Heading */}
         <div className="relative z-10 text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             {visible && <AnimatedWords text="Why Choose Us?" delay={0.6} />}
@@ -120,7 +148,7 @@ export default function WhySection() {
                 transition={{ duration: 0.6, delay: 1 }}
               >
                 We make funding easy and profitable for traders who want to grow
-                without limits.{" "}
+                without limits.
               </motion.span>
             )}
           </p>
@@ -128,6 +156,7 @@ export default function WhySection() {
 
         {/* Feature Cards */}
         <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8 justify-center">
+          
           {features.map((feature, index) => (
             <motion.div
               key={feature.title}
