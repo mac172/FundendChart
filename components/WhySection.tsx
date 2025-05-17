@@ -3,22 +3,28 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useEffect, useState } from "react";
+import { AnimatedWords } from "./HeroSection";
 
 const features = [
   {
-    title: "Instant Funding",
-    description: "Skip the evaluation. Get access to capital immediately and start trading right away.",
-    icon: "🚀",
-  },
-  {
-    title: "Profit Split",
-    description: "Earn up to 90% of the profits. The better you trade, the more you keep.",
-    icon: "💸",
-  },
-  {
-    title: "No Risk to You",
-    description: "Your losses are covered. We take the risk so you can focus on trading.",
+    title: "Zero Reward Denials",
+    description: "Trade with peace of mind.",
     icon: "🛡️",
+  },
+  {
+    title: "Your Favorite Platforms",
+    description: "MetaTrader5.",
+    icon: "⚙️",
+  },
+  {
+    title: "Flexible Reward Cycles",
+    description: "The choice is yours.",
+    icon: "💬",
+  },
+  {
+    title: "We Grow Together",
+    description: "We are in this together.",
+    icon: "🤝",
   },
 ];
 
@@ -73,32 +79,81 @@ export default function WhySection() {
           />
         </div>
 
+        {/* Animated planet SVG */}
+        <motion.img
+          src="/stars.svg"
+          alt="Planet Outline"
+          initial={{ opacity: 0, scale: 0.8, rotate: 30 }}
+          animate={
+            visible
+              ? {
+                  opacity: 0.2,
+                  scale: 1,
+                  rotate: [0, 10, -10, 0],
+                  y: [0, -10, 10, 0],
+                }
+              : {}
+          }
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute top-10 left-[-150px] w-[600px] h-[600px] pointer-events-none z-0"
+          style={{
+            transformOrigin: "center",
+            filter: "drop-shadow(0 0 30px rgba(147, 51, 234, 0.4))",
+          }}
+        />
+
+        {/* Title */}
         <div className="relative z-10 text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">Why Choose Us?</h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+            {visible && <AnimatedWords text="Why Choose Us?" delay={0.6} />}
+          </h2>
+
           <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-            We make funding easy and profitable for traders who want to grow without limits.
+            {visible && (
+              <motion.span
+                initial={{ opacity: 0, y: 20 }}
+                animate={visible ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: 1 }}
+              >
+                We make funding easy and profitable for traders who want to grow
+                without limits.{" "}
+              </motion.span>
+            )}
           </p>
         </div>
 
-        <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* Feature Cards */}
+        <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8 justify-center">
           {features.map((feature, index) => (
             <motion.div
               key={feature.title}
               initial={{ opacity: 0, y: 60, rotateY: -15, scale: 0.9 }}
               animate={
-                visible
-                  ? { opacity: 1, y: 0, rotateY: 0, scale: 1 }
-                  : {}
+                visible ? { opacity: 1, y: 0, rotateY: 0, scale: 1 } : {}
               }
-              transition={{ duration: 0.7, delay: 0.3 + index * 0.2 }}
-              className="bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl p-6 text-left shadow-lg hover:shadow-purple-400/30 transition hover:scale-[1.02]"
+              whileHover={{
+                scale: 1.05,
+                rotateX: 3,
+                rotateY: 3,
+                boxShadow: "0 10px 30px rgba(168, 85, 247, 0.4)",
+              }}
+              transition={{ duration: 0.6, delay: 0.3 + index * 0.2 }}
+              className="bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl p-6 text-left text-white shadow-lg w-72 flex flex-col items-center justify-center mx-auto"
               style={{ transformStyle: "preserve-3d" }}
             >
-              <div className="text-4xl mb-4">{feature.icon}</div>
+              <div className="mb-4 w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-2xl">
+                {feature.icon}
+              </div>
               <h3 className="text-xl font-semibold mb-2 text-purple-100">
                 {feature.title}
               </h3>
-              <p className="text-gray-300 text-sm">{feature.description}</p>
+              <p className="text-gray-300 text-sm text-center">
+                {feature.description}
+              </p>
             </motion.div>
           ))}
         </div>

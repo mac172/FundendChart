@@ -2,8 +2,7 @@
 import { useRef, useState } from "react";
 import HeroSection from "@/components/HeroSection";
 import WhySection from "@/components/WhySection";
-import { motion, AnimatePresence } from "framer-motion";
-
+import NavBar from "@/components/navbar";
 
 export default function Home() {
    const whyRef = useRef<HTMLDivElement>(null);
@@ -19,19 +18,13 @@ export default function Home() {
   };
   return (
     <div>
+      <div className="absolute top-0 left-0 w-full flex justify-center items-center z-10">
+         <NavBar />
+      </div>
       <div className="sticky top-0">
         <HeroSection onGetFundedClick={scrollToWhy}/>
       </div>
        <WhySection />
-       {/* <motion.div
-        ref={whyRef}
-        initial={{ scale: 0.95, opacity: 0 }}
-        whileInView={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        viewport={{ once: true, amount: 0.3 }}
-      >
-        <WhySection />
-      </motion.div> */}
     </div>
   );
 }
