@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { TextGenerateEffect } from "./ui/text-generate-effect";
-
+import { AccountCard } from "./AccountCard";
+import { ChartCard } from "./ChartCard";
 
 const AnimatedWords = ({
   text,
@@ -13,17 +13,15 @@ const AnimatedWords = ({
   delay?: number;
 }) => {
   const words = text.split(" ");
-
   const container = {
     hidden: {},
     visible: {
       transition: {
         staggerChildren: 0.15,
-        delayChildren: delay, // <- delay before words start animating
+        delayChildren: delay,
       },
     },
   };
-
   const word = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -49,13 +47,17 @@ const AnimatedWords = ({
   );
 };
 
-export default function HeroSection() {
+export default function HeroSection({
+  onGetFundedClick,
+}: {
+  onGetFundedClick: () => void;
+}) {
   const [showText, setShowText] = useState(false);
   const [showAurora, setShowAurora] = useState(false);
-
-  const heroText = "We Fund. You Trade. Your Profit.";
+  const [starDelay, setStarDelay] = useState(0);
 
   useEffect(() => {
+    setStarDelay(Math.random() * -30); // random delay for star scroll
     const timeout = setTimeout(() => {
       setShowText(true);
       setShowAurora(true);
@@ -65,9 +67,9 @@ export default function HeroSection() {
 
   return (
     <div className="relative h-screen overflow-hidden bg-black flex items-center justify-center text-white">
-      {/* 🎨 Faint Animated Gradient Overlay */}
+      {/* 🎨 Aurora Overlay */}
       <motion.div
-        className={`absolute inset-0 z-3 pointer-events-none`}
+        className="absolute inset-0 z-[1] pointer-events-none"
         initial={{ opacity: 0 }}
         animate={{
           opacity: [0.3, 0.6, 0.3],
@@ -86,21 +88,23 @@ export default function HeroSection() {
           className="w-full h-full"
           style={{
             backgroundImage: `
-radial-gradient(circle at 50% 80%, rgba(169, 85, 247, 0.29), transparent 70%),
-radial-gradient(circle at 30% 20%, rgba(226, 133, 220, 0.34), transparent 60%)
-            `,
+              radial-gradient(circle at 50% 80%, rgba(169, 85, 247, 0.29), transparent 70%),
+              radial-gradient(circle at 30% 20%, rgba(226, 133, 220, 0.34), transparent 60%)`,
             backgroundSize: "100% 100%",
             backgroundRepeat: "no-repeat",
           }}
         />
       </motion.div>
 
-      {/* 🔭 Starfield Background */}
-      <div className="absolute inset-0 z-2 overflow-hidden bg-black">
-        <div className="absolute top-0 left-0 w-full h-full bg-[url('/stars.svg')] bg-repeat opacity-90 animate-scroll-stars" />
+      {/* 🌌 Starfield */}
+      <div className="absolute inset-0 z-0 overflow-hidden bg-black">
+        <div
+          className="absolute top-0 left-0 w-full h-full bg-[url('/stars.svg')] bg-repeat opacity-90 animate-scroll-stars"
+          style={{ animationDelay: `${starDelay}s` }}
+        />
       </div>
 
-      {/* 🌌 Aurora Gradient Glow */}
+      {/* 🌠 Aurora Glow */}
       {showAurora && (
         <motion.div
           className="absolute top-0 left-0 w-full h-[300px] z-2 blur-2xl"
@@ -110,24 +114,44 @@ radial-gradient(circle at 30% 20%, rgba(226, 133, 220, 0.34), transparent 60%)
           style={{
             backgroundImage: `
               radial-gradient(ellipse at top center, rgba(147, 51, 234, 0.6), transparent 70%),
-              linear-gradient(to bottom, rgba(168, 85, 247, 0.3), transparent 100%)
-            `,
-            backgroundSize: "100% 100%",
-            backgroundRepeat: "no-repeat",
+              linear-gradient(to bottom, rgba(168, 85, 247, 0.3), transparent 100%)`,
           }}
         />
       )}
 
-      {/* 🌍 Sphere with glowing edge */}
+      {/* 🔵 Glowing Sphere (rotating wrapper) */}
       <motion.div
-        initial={{ y: "100%", opacity: 0 }}
-        animate={{ y: "0%", opacity: 1 }}
+        initial={{ opacity: 0, y: "100%" }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 2, ease: "easeInOut" }}
-        className="absolute bottom-[-650px] left-1/2 w-[1500px] h-[850px] rounded-t-full -translate-x-1/2 z-10 bg-[radial-gradient(circle_at_top,_rgba(168,85,247,0.4),_transparent_80%)] border-t-[2px] border-purple-400/50 shadow-[0_-20px_120px_rgba(168,85,247,0.6)]"
+        className="absolute bottom-[-650px] left-1/2 w-[1500px] h-[850px] rounded-t-full -translate-x-1/2 z-[20] origin-bottom animate-spin-slow"
       >
-        {/* Optional Earth/planet overlay lines */}
-        <div className="absolute inset-0 bg-[url('/planet-outline.svg')] bg-no-repeat bg-center bg-contain opacity-10 pointer-events-none" />
+        <div className="w-full h-full rounded-t-full bg-[radial-gradient(circle_at_top,_rgba(168,85,247,0.4),_transparent_80%)] border-t-[2px] border-purple-400/50 shadow-[0_-20px_120px_rgba(168,85,247,0.6)] relative">
+          <div className="absolute inset-0 bg-[url('/planet-outline.svg')] bg-no-repeat bg-center bg-contain opacity-10 pointer-events-none" />
+        </div>
       </motion.div>
+
+      {/* 💳 Cards Positioned inside Sphere */}
+      <div className="absolute bottom-10 left-10 z-[10]">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 5, duration: 1 }}
+          className="rounded-xl border border-white/10 bg-white/5 backdrop-blur-md p-4 shadow-lg shadow-purple-400/20"
+        >
+          <AccountCard />
+        </motion.div>
+      </div>
+      <div className="absolute bottom-10 right-10 z-[10]">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 5.2, duration: 1 }}
+          className="rounded-xl border border-white/10 bg-white/5 backdrop-blur-md p-4 shadow-lg shadow-purple-400/20"
+        >
+          <ChartCard />
+        </motion.div>
+      </div>
 
       {/* ☄️ Meteor Beam */}
       <AnimatePresence>
@@ -139,53 +163,47 @@ radial-gradient(circle at 30% 20%, rgba(226, 133, 220, 0.34), transparent 60%)
             exit={{ opacity: 0 }}
             transition={{ duration: 2, ease: "easeInOut", delay: 2 }}
           >
-            {/* Particles at the end of the beam */}
             <div className="absolute top-full left-1/2 w-3 h-3 bg-gradient-to-b from-yellow-300 via-pink-500 to-transparent rounded-full opacity-70 animate-ping -translate-x-1/2" />
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* 🌟 Hero Text */}
-      <AnimatePresence>
-        {showText && (
-          <motion.div
-            className="relative z-20 text-center translate-y-[-20%]"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: "easeOut", delay: 0.5 }}
-          >
-            <div className="inline-flex items-center px-4 py-2 rounded-full bg-gray-800 border border-gray-700 shadow-lg shadow-blue-500/20 mb-6">
-              {" "}
-              {/* Added mb-6 for space below */}
-              {/* Icon Placeholder - Replace with your actual icon (SVG, img, etc.) */}
-              {/* The image shows a sort of radiant star or sun icon */}
-              <div className="w-5 h-5 flex items-center justify-center text-blue-400 text-lg mr-2">
-                ✨ {/* Using an emoji as a placeholder icon */}
-              </div>
-              {/* Text */}
-              <span className="text-gray-200 uppercase text-sm font-semibold tracking-wide">
-                OUR CAPITAL YOUR SUCCESS
-              </span>
+      {/* 📝 Hero Content */}
+      {showText && (
+        <motion.div
+          className="relative z-30 text-center translate-y-[-20%]"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: "easeOut", delay: 0.5 }}
+        >
+          <div className="inline-flex items-center px-4 py-2 rounded-full bg-gray-800 border border-gray-700 shadow-lg shadow-blue-500/20 mb-6">
+            <div className="w-5 h-5 flex items-center justify-center text-blue-400 text-lg mr-2">
+              ✨
             </div>
-            <h1 className="text-4xl md:text-4xl lg:text-6xl font-semibold max-w-7xl mx-auto text-center mt-2 relative py-2 bg-clip-text text-transparent bg-gradient-to-b from-neutral-800 via-neutral-700 to-neutral-700 dark:from-neutral-800 dark:via-white dark:to-white">
-              {/* We Fund. You Trade. <br /> Your Profit. */}
-              <div>
-                <AnimatedWords text="We Fund. You Trade." delay={1}/>
-              </div>
-              <div>
-                <AnimatedWords text="Your Profit." delay={1.5} />{" "}
-                {/* delayed by 1s */}
-              </div>
-            </h1>
-            <p className="text-lg text-gray-300">
-              <AnimatedWords
-                text="Get more done with less effort, in a way that works for you."
-                delay={2}
-              />
-            </p>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            <span className="text-gray-200 uppercase text-sm font-semibold tracking-wide">
+              OUR CAPITAL YOUR SUCCESS
+            </span>
+          </div>
+          <h1 className="text-4xl md:text-4xl lg:text-6xl font-semibold max-w-7xl mx-auto text-center mt-2 relative py-2 bg-clip-text text-transparent bg-gradient-to-b from-neutral-800 via-neutral-700 to-neutral-700 dark:from-neutral-800 dark:via-white dark:to-white">
+            <div>
+              <AnimatedWords text="We Fund. You Trade." delay={1} />
+            </div>
+            <div>
+              <AnimatedWords text="Your Profit." delay={1.5} />
+            </div>
+          </h1>
+
+          {/* 🔘 CTA */}
+            <motion.button
+              className="mt-8 px-6 py-3 text-sm font-semibold uppercase bg-purple-600 hover:bg-purple-700 transition rounded-full shadow-md shadow-purple-400/30"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={onGetFundedClick}
+            >
+              Get Funded Now
+            </motion.button>
+        </motion.div>
+      )}
     </div>
   );
 }
