@@ -1,13 +1,37 @@
 'use client'; // This directive is for Next.js App Router
 
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import GLTFScene from './ui/glass-card';
+import { useInView } from 'react-intersection-observer';
 
 const Section4 = () => {
+    const [ref, inView] = useInView({ threshold: 0.6 });
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    if (inView) setVisible(true);
+  }, [inView]);
   return (
-    // Main container with background gradient (adjust colors as needed)
-    <section className="relative w-full min-h-screen bg-gradient-to-br from-gray-900 to-black text-white overflow-hidden flex items-center justify-center p-8">
+    <AnimatePresence>
+    <motion.section 
+            ref={ref}
+        initial={{
+          opacity: 0,
+          filter: "blur(20px)",
+          visibility: "hidden",
+        }}
+        animate={
+          visible
+          ? {
+            opacity: 1,
+            filter: "blur(0px)",
+            visibility: "visible",
+          }
+          : {}
+        }
+        transition={{ duration: 1.2, ease: "easeOut" }}
+        className="relative w-full min-h-screen bg-gradient-to-br from-gray-900 to-black text-white overflow-hidden flex items-center justify-center p-8">
 
       {/* Content container to control max width and add padding */}
       <div className="container mx-auto flex flex-col lg:flex-row items-center justify-between gap-12">
@@ -81,7 +105,8 @@ const Section4 = () => {
         </div>
 
       </div>
-    </section>
+    </motion.section>
+    </AnimatePresence>
   );
 };
 

@@ -4,6 +4,7 @@ import HeroSection from "@/components/HeroSection";
 import WhySection from "@/components/WhySection";
 import NavBar from "@/components/navbar";
 import Section4 from "@/components/Section4";
+import SectionCarousel from "@/components/Section5";
 
 export default function Home() {
   const whyRef = useRef<HTMLDivElement>(null);
@@ -41,6 +42,11 @@ export default function Home() {
       {/* Section4, with scroll-friendly layout */}
       <div className="relative min-h-screen">
         <Section4 />
+      </div>
+
+      {/* Section5, with scroll-friendly layout */}
+      <div className="">
+        <SectionCarousel />
       </div>
     </div>
   );
