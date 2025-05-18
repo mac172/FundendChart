@@ -2,6 +2,7 @@
 import { useRef, useState } from "react";
 import HeroSection from "@/components/HeroSection";
 import WhySection from "@/components/WhySection";
+
 import { motion, AnimatePresence } from "framer-motion";
 import { MarqueTextAnimation } from "@/components/marqueTextAnimation";
 import { TextFade } from "@/components/section3/TextFade";
@@ -9,6 +10,9 @@ import Lottie from "lottie-react";
 
 import { ContainerText } from "@/components/section3/ContainerText";
 import { ContainerContent } from "@/components/section3/ContainerContent";
+
+
+import NavBar from "@/components/navbar";
 
 
 export default function Home() {
@@ -25,10 +29,17 @@ export default function Home() {
   };
   return (
     <div>
+
       {/* Hero Section */}
+
+      <div className="absolute top-0 left-0 w-full flex justify-center items-center z-10">
+         <NavBar />
+      </div>
+
       <div className="sticky top-0">
         <HeroSection onGetFundedClick={scrollToWhy} />
       </div>
+
       {/* Section 2 */}
       <div className="w-full h-screen">
         <WhySection />
@@ -48,6 +59,9 @@ export default function Home() {
       >
         <WhySection />
       </motion.div> */}
+
+       <WhySection />
+
     </div>
   );
 }

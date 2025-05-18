@@ -1,0 +1,103 @@
+<svg
+  width="300"
+  height="300"
+  viewBox="0 0 200 200"
+  xmlns="http://www.w3.org/2000/svg"
+  role="img"
+  aria-label="Black hole animation"
+>
+  <defs>
+    <!-- Glowing core gradient -->
+    <radialGradient id="coreGradient" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#e0c3fc" />
+      <stop offset="100%" stop-color="#8a2be2" />
+    </radialGradient>
+
+    <!-- Ring gradient -->
+    <linearGradient id="ringGradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#a78bfa" />
+      <stop offset="50%" stop-color="#7c3aed" />
+      <stop offset="100%" stop-color="#c084fc" />
+    </linearGradient>
+
+    <!-- Glow filter -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%" >
+      <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="#a78bfa" flood-opacity="0.8"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="#7c3aed" flood-opacity="0.6"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="8" flood-color="#c084fc" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Black hole core -->
+  <circle
+    cx="100"
+    cy="100"
+    r="30"
+    fill="url(#coreGradient)"
+    filter="url(#glow)"
+  />
+
+  <!-- Animated swirling rings -->
+  <circle
+    cx="100"
+    cy="100"
+    r="45"
+    fill="none"
+    stroke="url(#ringGradient)"
+    stroke-width="4"
+    stroke-linecap="round"
+    style="transform-origin: 100px 100px;"
+  >
+    <animateTransform
+      attributeName="transform"
+      attributeType="XML"
+      type="rotate"
+      from="0 100 100"
+      to="360 100 100"
+      dur="15s"
+      repeatCount="indefinite"
+    />
+  </circle>
+
+  <circle
+    cx="100"
+    cy="100"
+    r="65"
+    fill="none"
+    stroke="url(#ringGradient)"
+    stroke-width="3"
+    stroke-linecap="round"
+    style="transform-origin: 100px 100px;"
+  >
+    <animateTransform
+      attributeName="transform"
+      attributeType="XML"
+      type="rotate"
+      from="360 100 100"
+      to="0 100 100"
+      dur="25s"
+      repeatCount="indefinite"
+    />
+  </circle>
+
+  <circle
+    cx="100"
+    cy="100"
+    r="85"
+    fill="none"
+    stroke="url(#ringGradient)"
+    stroke-width="2"
+    stroke-linecap="round"
+    style="transform-origin: 100px 100px;"
+  >
+    <animateTransform
+      attributeName="transform"
+      attributeType="XML"
+      type="rotate"
+      from="0 100 100"
+      to="360 100 100"
+      dur="40s"
+      repeatCount="indefinite"
+    />
+  </circle>
+</svg>
