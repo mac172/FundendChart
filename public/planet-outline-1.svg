@@ -1,0 +1,6 @@
+<!-- planet-outline.svg -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <circle cx="100" cy="100" r="50" stroke="white" stroke-width="4"/>
+  <ellipse cx="100" cy="100" rx="80" ry="30" transform="rotate(-20 100 100)" stroke="white" stroke-width="2" />
+  <ellipse cx="100" cy="100" rx="80" ry="30" transform="rotate(20 100 100)" stroke="white" stroke-width="2" />
+</svg>
