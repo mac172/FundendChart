@@ -23,7 +23,7 @@ export const AnimatedWords = ({
     },
   };
   const word = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 70 },
     visible: {
       opacity: 1,
       y: 0,
@@ -66,7 +66,7 @@ export default function HeroSection({
   }, []);
 
   return (
-    <div className="relative h-screen overflow-hidden bg-black flex items-center justify-center text-white">
+    <div className="sticky h-screen overflow-hidden bg-black flex items-center justify-center text-white">
       {/* 🎨 Aurora Overlay */}
       <motion.div
         className="absolute inset-0 z-[1] pointer-events-none"

@@ -1,0 +1,11 @@
+Model Information:
+* title:	Centurion Card (Free)
+* source:	https://sketchfab.com/3d-models/centurion-card-free-0b95ead718a5486eaa8355eeb6be8283
+* author:	BOED_YT (https://sketchfab.com/boedyt)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Centurion Card (Free)" (https://sketchfab.com/3d-models/centurion-card-free-0b95ead718a5486eaa8355eeb6be8283) by BOED_YT (https://sketchfab.com/boedyt) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

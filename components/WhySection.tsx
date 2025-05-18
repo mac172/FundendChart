@@ -39,7 +39,7 @@ export default function WhySection() {
   }, [inView]);
 
   return (
-    <AnimatePresence>
+    <AnimatePresence >
       <motion.section
         ref={ref}
         initial={{

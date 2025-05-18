@@ -29,7 +29,7 @@ export default function LoginButton({
         <div
           className={cn(
             "relative flex h-7 w-7 items-center justify-center overflow-hidden rounded-full transition-transform duration-100",
-            "bg-orange-600 group-hover:bg-amber-100",
+            "bg-[#9333ea] group-hover:bg-amber-100",
           )}
         >
           <div className="absolute left-0 flex h-7 w-14 -translate-x-1/2 items-center justify-center transition-all duration-200 ease-in-out group-hover:translate-x-0">
