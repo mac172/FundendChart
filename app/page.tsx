@@ -2,20 +2,11 @@
 import { useRef, useState, useEffect } from "react";
 import HeroSection from "@/components/HeroSection";
 import WhySection from "@/components/WhySection";
-
-import { motion, AnimatePresence } from "framer-motion";
-import { MarqueTextAnimation } from "@/components/marqueTextAnimation";
-import { TextFade } from "@/components/section3/TextFade";
-import Lottie from "lottie-react";
-
 import { ContainerText } from "@/components/section3/ContainerText";
 import { ContainerContent } from "@/components/section3/ContainerContent";
-
-
 import NavBar from "@/components/navbar";
-
 import Section4 from "@/components/Section4";
-import SectionCarousel from "@/components/Section5";
+import SuggestedCarousel  from "@/components/Section5";
 
 export default function Home() {
   const whyRef = useRef<HTMLDivElement>(null);
@@ -43,7 +34,7 @@ export default function Home() {
       </div>
 
       {/* Section 2 */}
-      <div className="w-full h-screen">
+      <div className="w-full h-screen" id="why">
         <WhySection />
       </div>
       {/* Section 3 */}
@@ -53,14 +44,6 @@ export default function Home() {
         <ContainerContent />
       </div>
 
-      {/* Why Section */}
-      <div
-        ref={whyRef}
-        className="relative min-h-screen h-[130%] overflow-hidden"
-      >
-        <WhySection />
-      </div>
-
       {/* Section4, with scroll-friendly layout */}
       <div className="relative min-h-screen">
         <Section4 />
@@ -68,7 +51,7 @@ export default function Home() {
 
       {/* Section5, with scroll-friendly layout */}
       <div className="">
-        <SectionCarousel />
+        <SuggestedCarousel loading={true} />
       </div>
     </div>
   );

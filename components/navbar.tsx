@@ -7,7 +7,7 @@ import LoginButton from './ui/login-btn';
 
 const navLinks = [
   { name: 'Home', href: '/' },
-  { name: 'About', href: '#about' },
+  { name: 'About', href: '#why' },
   { name: 'Evaluation', href: '#evaluation' },
   { name: 'FAQs', href: '#faqs' },
   { name: 'Contact', href: '#contact' },

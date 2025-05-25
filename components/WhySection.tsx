@@ -44,8 +44,6 @@ export default function WhySection() {
         ref={ref}
         initial={{
           opacity: 0,
-          scale: 0.8,
-          rotateX: -35,
           filter: "blur(20px)",
           visibility: "hidden",
         }}
@@ -53,8 +51,6 @@ export default function WhySection() {
           visible
           ? {
             opacity: 1,
-            scale: 1,
-            rotateX: 0,
             filter: "blur(0px)",
             visibility: "visible",
           }

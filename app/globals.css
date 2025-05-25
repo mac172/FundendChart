@@ -62,4 +62,73 @@ body {
     animation: scrollStars 300s linear infinite;
   }
 
+.beam-border {
+  position: relative;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  z-index: 0;
+}
 
+.beam-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 2px;
+  border-radius: 0.75rem;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    #a3e635 90deg,
+    transparent 180deg,
+    #a3e635 270deg,
+    transparent 360deg
+  );
+  animation: beamRotate 3s linear infinite;
+  mask: 
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: destination-out;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.beam-border img {
+  position: relative;
+  z-index: 2;
+  border-radius: 0.75rem;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@keyframes beamRotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.noise {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background-image: 
+    radial-gradient(circle, rgba(0,0,0,0.02) 1px, transparent 1px),
+    radial-gradient(circle, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-position: 0 0, 25px 25px;
+  background-size: 50px 50px;
+  opacity: 0.1;
+  z-index: 20;
+}
+
+@layer utilities {
+  .text-shadow-green {
+    text-shadow: 0 0 20px rgba(222, 74, 220, 0.4);
+  }
+}

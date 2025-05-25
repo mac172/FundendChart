@@ -39,11 +39,68 @@ export const AnimatedWords = ({
       className="inline-block"
     >
       {words.map((w, i) => (
-        <motion.span key={i} variants={word} className="inline-block mr-2">
+        <motion.span
+          key={i}
+          variants={word}
+          className="inline-block mr-2 text-shadow-green"
+        >
           {w}
         </motion.span>
       ))}
     </motion.span>
+  );
+};
+
+const cryptoCoins = [
+  "/coins/bitcoin.svg",
+  "/coins/ethereum.svg",
+  "/coins/dogecoin.svg",
+  "/coins/solana.svg",
+  "/coins/cardano.svg",
+];
+
+const FloatingCoin = ({ src, delay }: { src: string; delay: number }) => {
+  const randomX = Math.random() * 80 + 10; // 10% to 90%
+  const randomY = Math.random() * 20 + 10; // 10% to 30% vertical range
+  const size = Math.random() * 30 + 30; // 30–60px
+
+  return (
+    <motion.img
+      src={src}
+      alt="coin"
+      className="absolute z-[5] opacity-70 pointer-events-none"
+      initial={{
+        x: `${randomX}%`,
+        y: `${randomY}%`,
+        scale: 1,
+      }}
+      animate={{
+        x: [
+          `${randomX}%`,
+          `${randomX + 1.5}%`,
+          `${randomX - 1.5}%`,
+          `${randomX}%`,
+        ],
+        y: [
+          `${randomY}%`,
+          `${randomY + 1.5}%`,
+          `${randomY - 1.5}%`,
+          `${randomY}%`,
+        ],
+        rotate: [0, 2, -2, 0],
+      }}
+      transition={{
+        duration: 6 + Math.random() * 3,
+        ease: "easeInOut",
+        repeat: Infinity,
+        repeatType: "mirror",
+        delay,
+      }}
+      style={{
+        width: `${size}px`,
+        height: `${size}px`,
+      }}
+    />
   );
 };
 
@@ -176,14 +233,15 @@ export default function HeroSection({
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: "easeOut", delay: 0.5 }}
         >
-          <div className="inline-flex items-center px-4 py-2 rounded-full bg-gray-800 border border-gray-700 shadow-lg shadow-blue-500/20 mb-6">
-            <div className="w-5 h-5 flex items-center justify-center text-blue-400 text-lg mr-2">
-              ✨
-            </div>
-            <span className="text-gray-200 uppercase text-sm font-semibold tracking-wide">
-              OUR CAPITAL YOUR SUCCESS
-            </span>
+          {/* 💰 Floating Crypto Bubbles */}
+          {cryptoCoins.map((coin, idx) => (
+            <FloatingCoin key={idx} src={coin} delay={Math.random() * 5} />
+          ))}
+
+          <div className="text-sm md:text-base max-w-4xl text-center px-5 py-2 border border-[#4ade80]/30 rounded-full bg-[#4ade80]/5 text-[#4ade80] mb-6">
+            ✨ Our Capital, Your Success
           </div>
+
           <h1 className="text-4xl md:text-4xl lg:text-6xl font-semibold max-w-7xl mx-auto text-center mt-2 relative py-2 bg-clip-text text-transparent bg-gradient-to-b from-neutral-800 via-neutral-700 to-neutral-700 dark:from-neutral-800 dark:via-white dark:to-white">
             <div>
               <AnimatedWords text="We Fund. You Trade." delay={1} />
@@ -194,73 +252,16 @@ export default function HeroSection({
           </h1>
 
           {/* 🔘 CTA */}
-            <motion.button
-              className="mt-8 px-6 py-3 text-sm font-semibold uppercase bg-purple-600 hover:bg-purple-700 transition rounded-full shadow-md shadow-purple-400/30"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={onGetFundedClick}
-            >
-              Get Funded Now
-            </motion.button>
+          <motion.button
+            className="mt-8 px-8 py-3 text-sm md:text-base font-semibold uppercase tracking-wide text-white rounded-full bg-gradient-to-br from-purple-500 via-fuchsia-600 to-pink-500 hover:from-purple-600 hover:via-fuchsia-700 hover:to-pink-600 transition-all duration-300 shadow-lg shadow-fuchsia-500/30 backdrop-blur-sm border border-white/10"
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.96 }}
+            onClick={onGetFundedClick}
+          >
+            Get Funded Now
+          </motion.button>
         </motion.div>
       )}
     </div>
   );
 }
-
-// 'use client';
-
-// import { useEffect, useState } from 'react';
-// import { motion, AnimatePresence } from 'framer-motion';
-
-// export default function HeroSection() {
-//   const [showText, setShowText] = useState(false);
-
-//   useEffect(() => {
-//     const timeout = setTimeout(() => setShowText(true), 4000); // Delay text until beam completes
-//     return () => clearTimeout(timeout);
-//   }, []);
-
-//   return (
-//     <div className="relative h-screen overflow-hidden bg-gradient-radial from-gray-900 via-black to-black flex items-center justify-center text-white">
-//       {/* Planet / Sphere */}
-//       <motion.div
-//         initial={{ y: '100%', opacity: 0 }}
-//         animate={{ y: '0', opacity: 1 }}
-//         transition={{ duration: 2, ease: 'easeInOut' }}
-//         className="absolute bottom-[-650px] left-1/2 w-[1500px] h-[850px] bg-gradient-radial from-indigo-400 via-indigo-800 to-black rounded-t-full -translate-x-1/2 shadow-[inset_0_30px_60px_rgba(0,0,0,0.5)] z-1 border-t-2 border-indigo-300"
-//       />
-
-//       {/* Meteor Beam */}
-// <AnimatePresence>
-//   {!showText && (
-//     <motion.div
-//       className="absolute top-0 left-1/2 w-[6px] h-[500px] bg-gradient-to-b from-pink-500 via-yellow-400 to-yellow-200 shadow-[0_0_30px_#facc15,0_0_60px_#f472b6] -translate-x-1/2 z-[-1]"
-//       initial={{ y: '-100%', opacity: 1 }}
-//       animate={{ y: '100px', opacity: 0 }}
-//       exit={{ opacity: 0 }}
-//       transition={{ duration: 2, ease: 'easeInOut', delay: 2 }}
-//     >
-//       {/* Particles at the end of the beam */}
-//       <div className="absolute top-full left-1/2 w-3 h-3 bg-gradient-to-b from-yellow-300 via-pink-500 to-transparent rounded-full opacity-70 animate-ping -translate-x-1/2" />
-//     </motion.div>
-//   )}
-// </AnimatePresence>
-
-//       {/* Hero Text */}
-//       <AnimatePresence>
-//         {showText && (
-//           <motion.div
-//             className="relative z-20 text-center"
-//             initial={{ opacity: 0, y: 30 }}
-//             animate={{ opacity: 1, y: 0 }}
-//             transition={{ duration: 1, ease: 'easeOut', delay: 0.5 }}
-//           >
-//             <h1 className="text-5xl font-bold mb-4">Welcome to Nova</h1>
-//             <p className="text-lg text-gray-300">Your gateway to the cosmos.</p>
-//           </motion.div>
-//         )}
-//       </AnimatePresence>
-//     </div>
-//   );
-// }
