@@ -129,6 +129,14 @@ body {
 
 @layer utilities {
   .text-shadow-green {
-    text-shadow: 0 0 20px rgba(222, 74, 220, 0.4);
+    text-shadow: 0 0 20px rgba(46, 198, 204, 0.815);
+  }
+
+  .text-prop-green {
+    color: #4ade80;
+  }
+
+  .bg-prop-dark {
+    background-color: #000000;
   }
 }

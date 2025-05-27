@@ -1,22 +1,3 @@
-// import { motion, useTransform, useScroll } from "framer-motion";
-
-// export const MarqueTextAnimation = () => {
-//     const { scrollYProgress } = useScroll();
-    
-//     // Transform scrollYProgress (0 to 1) to x position (100% to -100%)
-//     const x = useTransform(scrollYProgress, [0, 9], ["100%", "-790%"]);
-
-//     return (
-//         <div className="relative w-[100%] h-[100vh] bg-gray-900 text-white overflow-hidden">
-//             <motion.h1 
-//                 className="font-bold text-[78px] whitespace-nowrap"
-//                 style={{ x }}
-//             >
-//                 Swipe free for 28 pairs and all metals!
-//             </motion.h1>
-//         </div>
-//     );
-// }
 
 'use client';
 import { cn } from '@/lib/utils';

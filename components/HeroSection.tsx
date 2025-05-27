@@ -39,11 +39,7 @@ export const AnimatedWords = ({
       className="inline-block"
     >
       {words.map((w, i) => (
-        <motion.span
-          key={i}
-          variants={word}
-          className="inline-block mr-2 text-shadow-green"
-        >
+        <motion.span key={i} variants={word} className="inline-block mr-2">
           {w}
         </motion.span>
       ))}
@@ -59,38 +55,39 @@ const cryptoCoins = [
   "/coins/cardano.svg",
 ];
 
-const FloatingCoin = ({ src, delay }: { src: string; delay: number }) => {
-  const randomX = Math.random() * 80 + 10; // 10% to 90%
-  const randomY = Math.random() * 20 + 10; // 10% to 30% vertical range
-  const size = Math.random() * 30 + 30; // 30–60px
+const FloatingCoin = ({
+  src,
+  delay,
+  side,
+  index,
+}: {
+  src: string;
+  delay: number;
+  side: "left" | "right";
+  index: number;
+}) => {
+  const offsetX = side === "left" ? -80 - index * 20 : 80 + index * 20;
+  const offsetY = Math.random() * 50 - 25; // spread vertically
+
+  const size = Math.random() * 20 + 30;
 
   return (
     <motion.img
       src={src}
       alt="coin"
-      className="absolute z-[5] opacity-70 pointer-events-none"
+      className="absolute z-[5] opacity-80 pointer-events-none"
       initial={{
-        x: `${randomX}%`,
-        y: `${randomY}%`,
+        x: `${offsetX}px`,
+        y: `${offsetY}px`,
         scale: 1,
+        rotate: 0,
       }}
       animate={{
-        x: [
-          `${randomX}%`,
-          `${randomX + 1.5}%`,
-          `${randomX - 1.5}%`,
-          `${randomX}%`,
-        ],
-        y: [
-          `${randomY}%`,
-          `${randomY + 1.5}%`,
-          `${randomY - 1.5}%`,
-          `${randomY}%`,
-        ],
-        rotate: [0, 2, -2, 0],
+        y: [offsetY, offsetY + 10, offsetY - 10, offsetY],
+        rotate: [0, 5, -5, 0],
       }}
       transition={{
-        duration: 6 + Math.random() * 3,
+        duration: 4 + Math.random() * 2,
         ease: "easeInOut",
         repeat: Infinity,
         repeatType: "mirror",
@@ -234,9 +231,15 @@ export default function HeroSection({
           transition={{ duration: 1, ease: "easeOut", delay: 0.5 }}
         >
           {/* 💰 Floating Crypto Bubbles */}
-          {cryptoCoins.map((coin, idx) => (
-            <FloatingCoin key={idx} src={coin} delay={Math.random() * 5} />
-          ))}
+          {/* {cryptoCoins.map((coin, idx) => (
+            <FloatingCoin
+              key={idx}
+              src={coin}
+              delay={Math.random() * 2}
+              side={idx % 2 === 0 ? "left" : "right"}
+              index={idx}
+            />
+          ))} */}
 
           <div className="text-sm md:text-base max-w-4xl text-center px-5 py-2 border border-[#4ade80]/30 rounded-full bg-[#4ade80]/5 text-[#4ade80] mb-6">
             ✨ Our Capital, Your Success

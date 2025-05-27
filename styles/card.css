@@ -1,0 +1,24 @@
+/* Masonry container setup */
+.masonry-grid {
+  display: flex;
+  margin-left: -50px; /* gutter size offset */
+  width: auto;
+}
+
+.masonry-column {
+  padding-left: 50px; /* gutter size */
+  background-clip: padding-box;
+  flex: 1;
+}
+
+/* Override container styles because Masonry handles flex */
+.container {
+  position: relative;
+  /* Remove previous flex styles */
+  /* flex-wrap and justify-content removed */
+  min-height: 100vh;
+  padding: 20px 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  /* gap removed */
+}
